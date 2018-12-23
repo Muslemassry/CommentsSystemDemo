@@ -1,0 +1,51 @@
+<!-- Header -->		
+
+<header id="header">
+				<div class="logo"><a href="#login">Transitive <span>by TEMPLATED</span></a></div>
+				<a href="#menu" class="toggle"><span>Menu</span></a>
+			</header>
+
+<nav id="menu">	</nav>
+	
+<section id="banner" data-video="images/banner">
+				<div class="inner">
+					<h1>Temperature System Check</h1>
+					<p>Welcome to Temprature Check Demo<br />
+					This System is used by Employees of <a href="index.html">WebCheck company</a></p>
+					<a href="#content" class="button special scrolly">Get Started</a>
+				</div>
+			</section>
+			
+			
+<footer id="content" class="wrapper">
+				<div class="inner">
+					<section>
+						<div class="box">
+							<div class="content">
+								<h2 class="align-center">Log in</h2>
+								<hr />
+								<div class="field">
+										{{message}}
+								</div>
+								<br>
+								<form ng-submit="login()">
+									<div class="field">
+										<label for="username" >Username</label>
+										<input id="username" type="text" placeholder="Username" ng-model="username" ></input>
+									</div>
+									<div class="field">
+										<label for="password" >Password</label>
+										<input id="password" type="password" placeholder="Password" ng-model="password"></input>
+									</div>
+									<ul class="actions align-center">
+										<li><input value="Login" class="button special" type="submit"></li>
+									</ul>
+								</form>
+							</div>
+						</div>
+					</section>
+					<div class="copyright">
+						&copy; Web check : <a href="http://localhost:8080/TempratureCheckWebSec/">WebCheck System</a>.
+					</div>
+				</div>
+			</footer>

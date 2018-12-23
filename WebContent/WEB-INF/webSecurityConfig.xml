@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:security="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd">
+   <!-- 
+   <security:http pattern="/assets/**" use-expressions="false" security="none"/>
+   <security:http pattern="/images/**" use-expressions="false" security="none"/>
+   
+    
+	
+	<security:authentication-manager>
+	    <security:authentication-provider>
+	    	<security:jdbc-user-service data-source-ref="dataSource"/>
+	    	<security:password-encoder ref="bcryptEncoder"/>
+	    </security:authentication-provider>
+	</security:authentication-manager>
+	
+    
+    
+   
+	
+	
+	 
+	<security:authentication-manager>
+	<security:authentication-provider>
+	    <security:user-service>
+	    <security:user name="user1" password="{noop}pass1" authorities="ROLE_USER, ROLE_ADMIN" />
+	    <security:user name="user2" password="{noop}pass2" authorities="ROLE_USER" />
+	    </security:user-service>
+	</security:authentication-provider>
+	</security:authentication-manager>
+	
+	<security:http auto-config="true" use-expressions="false">
+		<security:intercept-url pattern="/**" access="ROLE_USER" />
+        <security:form-login />
+        <security:logout invalidate-session="true" />
+    </security:http>
+    <security:debug/>
+	 -->
+	 <bean name="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	 <bean name="restAuthenticationEntryPoint" class="com.spring.RestAuthenticationEntryPoint"></bean>
+	 <bean name="customAuthenticationSuccessHandler" class="com.spring.CustomAuthenticationSuccessHandler"></bean>
+	 <bean name="customAuthenticationFailureHandler" class="com.spring.CustomAuthenticationFailureHandler"></bean>
+	 
+	 <security:http use-expressions="false" entry-point-ref="restAuthenticationEntryPoint">
+	 <security:csrf disabled="true"/>
+     <security:intercept-url pattern="/rest/addComment" access="ROLE_ADMIN"/>
+     <security:intercept-url pattern="/rest/*" access="ROLE_USER"/>
+     <security:form-login login-processing-url="/rest/doLogin" username-parameter="username" password-parameter="password"
+     	authentication-success-handler-ref="customAuthenticationSuccessHandler" authentication-failure-handler-ref="customAuthenticationFailureHandler"/>
+     <security:logout logout-url="/rest/doLogout" delete-cookies="JSESSIONID"/> 	
+	</security:http>
+	<!--
+	<security:authentication-provider>
+    	<security:jdbc-user-service data-source-ref="dataSource" 
+    		users-by-username-query="select username,password, enabled from users where username=?"
+            authorities-by-username-query="Select username, concat('ROLE_',authority) user_role from authorities where username=?"/>
+    	<security:password-encoder ref="bcryptEncoder"/>
+    </security:authentication-provider>
+		
+	-->
+	<security:authentication-manager>
+	
+    <security:authentication-provider>
+	    <security:user-service>
+	    <security:user name="user1" password="{noop}pass1" authorities="ROLE_USER, ROLE_ADMIN" />
+	    <security:user name="user2" password="{noop}pass2" authorities="ROLE_USER" />
+	    </security:user-service>
+	</security:authentication-provider>
+	</security:authentication-manager>
+</beans>
