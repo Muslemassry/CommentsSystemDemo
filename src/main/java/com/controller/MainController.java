@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,8 +19,9 @@ public class MainController {
 	@Autowired
 	private CommentService commentService;
 	
-	@Autowired PersonService personService;
-	
+	@Autowired
+	private PersonService personService;
+
 	@GetMapping("/getComments")
     public List<Comment> getComments() {
         return commentService.getComment();
@@ -65,5 +65,13 @@ public class MainController {
 
 	public void setCommentService(CommentService commentService) {
 		this.commentService = commentService;
+	}
+	
+	public PersonService getPersonService() {
+		return personService;
+	}
+
+	public void setPersonService(PersonService personService) {
+		this.personService = personService;
 	}
 }
